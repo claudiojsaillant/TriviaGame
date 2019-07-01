@@ -15,10 +15,20 @@ var objectGame = {
 var things = [objectGame.quiz1, objectGame.quiz2, objectGame.quiz3, objectGame.quiz4, objectGame.quiz5];
 
 
-$('#startbutton').on('click', function hey() {
-  $('#startbutton').hide();
-  run();
-  render();
+$('#startbutton').on('click', function () {
+  if ((things.length < 1 || things == undefined)) {
+    reset();
+    run();
+    render();
+    $('#timer').show();
+    $('#startbutton').hide();
+  }
+
+  else {
+    run();
+    render();
+    $('#startbutton').hide();
+  }
 })
 
 function run() {
@@ -28,31 +38,28 @@ function run() {
 
 function decrement() {
   $('#timeup').hide()
-  //  Decrease number by one.
+
+
   number--;
-  //  Show the number in the #show-number tag.
+
   $("#timer").html("<h2>" + number + "</h2>");
-  //  Once number hits zero...
+
   if (number === 0) {
-    $('#timeup').text('Time is up!')
+    $('#posibleans1').empty();
+    $('#posibleans2').empty();
+    $('#question').empty();
+    $('#timeup').text('Time is up! the answer was:' + answer);
     clearInterval(intervalId);
     number = 30;
     $('#timeup').show()
     setTimeout(function () {
-      $('#posibleans1').empty();
-      $('#posibleans2').empty();
-      run();
       render();
+      run();
     }, 1000);
   }
 }
 
-// If array if empty finish the game
-// add styling for selecting the answers and event click listeners
-//win/ loss function
-//right know timer working perfectly and it going through all the questions
 function render() {
-
   $('#posibleans1').empty();
   $('#posibleans2').empty();
   var randomIndex = Math.floor(Math.random() * things.length);
@@ -66,6 +73,7 @@ function render() {
     $('#posibleans2').empty();
     $('#question').text("Game is over, final score: " + score);
     setTimeout(function () {
+      $('#startbutton').show();
     }, 2000);
   }
 
@@ -114,16 +122,27 @@ function randomizer(array) {
 }
 
 
+function reset() {
+  score = 0;
+  answer = '';
+  projectQuestion = [];
+  number = 30;
+  things = [objectGame.quiz1, objectGame.quiz2, objectGame.quiz3, objectGame.quiz4, objectGame.quiz5];
+  objectGame.questions = ["Which war movie won the Academy Award for Best Picture in 2009?", "Q. What was the name of the second Indiana Jones movie, released in 1984?", "Which actor starred in the 1961 movie The Hustler?", "In which year were the Academy Awards, or 'Oscars', first presented?", "What is the name of the hobbit played by Elijah Wood in the Lord of the Rings movies?"]
+}
+
 $(document).on("click", ".choice", function () {
   var elementid = ($(this).attr('id'));
+  $('#timer').hide();
+  clearInterval(intervalId);
+  number = 30;
 
   if (elementid === 'incorrect') {
-    $('#timer').hide();
     clearInterval(intervalId);
-    number = 30;
+    $('#timer').hide();
     $('#posibleans1').empty();
     $('#posibleans2').empty();
-    $('#question').text("The correct answer was: " + answer);
+    $('#question').text("Incorrect! the correct answer was: " + answer);
     setTimeout(function () {
       $('#posibleans1').empty();
       $('#posibleans2').empty();
@@ -132,13 +151,11 @@ $(document).on("click", ".choice", function () {
       render();
     }, 2000);
   }
-  
+
   else {
     if (things.length != -1) {
-      score = score + 10;
-      $('#timer').hide();
       clearInterval(intervalId);
-      number = 30
+      score = score + 10;
       $('#posibleans1').empty();
       $('#posibleans2').empty();
       $('#question').text("Good job! but can you keep going?");
