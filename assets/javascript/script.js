@@ -1,4 +1,3 @@
-
 var score = 0;
 var answer = '';
 var projectQuestion = [];
@@ -71,7 +70,7 @@ function render() {
     number = 30
     $('#posibleans1').empty();
     $('#posibleans2').empty();
-    $('#question').text("Game is over, final score: " + score);
+    $('#question').text("Game is over, final score: " + score + ", you correctly answered " + score/10 + " questions out of 5!");
     setTimeout(function () {
       $('#startbutton').show();
     }, 2000);
