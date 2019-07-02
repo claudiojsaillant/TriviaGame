@@ -138,8 +138,10 @@ $(document).on("click", ".choice", function () {
 
   if (elementid === 'incorrect') {
     $(this).addClass('red-glow');
+    $('#answer').addClass('green-glow')
     setTimeout(function () {
-      $(this).removeClass('red-glow')
+      $(this).removeClass('red-glow');
+      
     }, 700);
 
     setTimeout(function () {
