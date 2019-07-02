@@ -6,7 +6,7 @@ var intervalId;
 var objectGame = {
   questions: ["Which war movie won the Academy Award for Best Picture in 2009?", "Q. What was the name of the second Indiana Jones movie, released in 1984?", "Which actor starred in the 1961 movie The Hustler?", "In which year were the Academy Awards, or 'Oscars', first presented?", "What is the name of the hobbit played by Elijah Wood in the Lord of the Rings movies?"],
   quiz1: ['aThe Hurt Locker', 'The Wurt Worker', 'Titanic', 'Star Mars'],
-  quiz2: ['aIndiana Jones and the Temple of Doom', 'Indiana Jones and the Temple of Room.', 'Indiana Jones', 'Indiana Bones'],
+  quiz2: ['aIndiana Jones: Temple of Doom', 'Indiana Jones: Temple of Room.', 'Indiana Jones', 'Indiana Bones'],
   quiz3: ['aPaul Newman', 'Paul Mcarty', 'Paul Smith', 'Paul Waker'],
   quiz4: ['a1929', '2000', '1995', '1990'],
   quiz5: ['aFrodo Baggins', 'Frodo De Fredo', 'Frodon', 'Frody']
