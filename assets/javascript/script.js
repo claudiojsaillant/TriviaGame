@@ -47,7 +47,7 @@ function decrement() {
     $('#posibleans1').empty();
     $('#posibleans2').empty();
     $('#question').empty();
-    $('#timeup').text('Time is up! the answer was:' + answer);
+    $('#timeup').text('Time is up! the answer was: ' + answer);
     clearInterval(intervalId);
     number = 30;
     $('#timeup').show()
@@ -70,7 +70,7 @@ function render() {
     number = 30
     $('#posibleans1').empty();
     $('#posibleans2').empty();
-    $('#question').text("Game is over, final score: " + score + ", you correctly answered " + score/10 + " questions out of 5!");
+    $('#question').text("Game is over, final score: " + score + ", you correctly answered " + score / 10 + " questions out of 5!");
     setTimeout(function () {
       $('#startbutton').show();
     }, 2000);
@@ -84,22 +84,22 @@ function render() {
     for (i = 0; i < 4; i++) {
       if (i === 1 || i === 0) {
         if (projectQuestion[i].charAt(0) === 'a') {
-          $("#posibleans1").append("<div class='choice' id='answer'>" + projectQuestion[i].substring(1) + "</div>")
+          $("#posibleans1").append("<div class='choice' id='answer'><button class='buttons'>" + projectQuestion[i].substring(1) + "</button></div>")
           answer = projectQuestion[i].substring(1);
         }
         else {
-          $("#posibleans1").append("<div class='choice' id='incorrect'>" + projectQuestion[i] + "</div>")
+          $("#posibleans1").append("<div class='choice' id='incorrect'><button class='buttons'>" + projectQuestion[i] + "</button></div>")
         }
       }
 
       else if (i === 2 || i === 3) {
 
         if (projectQuestion[i].charAt(0) === 'a') {
-          $("#posibleans2").append("<div class='choice' id='answer'>" + projectQuestion[i].substring(1) + "</div>")
+          $("#posibleans2").append("<div class='choice' id='answer'><button class='buttons'>" + projectQuestion[i].substring(1) + "</button></div>")
           answer = projectQuestion[i].substring(1);
         }
         else {
-          $("#posibleans2").append("<div class='choice' id='incorrect'>" + projectQuestion[i] + "</div>")
+          $("#posibleans2").append("<div class='choice' id='incorrect'><button class='buttons'>" + projectQuestion[i] + "</button></div>")
         }
       }
     }
@@ -137,27 +137,17 @@ $(document).on("click", ".choice", function () {
   number = 30;
 
   if (elementid === 'incorrect') {
-    clearInterval(intervalId);
-    $('#timer').hide();
-    $('#posibleans1').empty();
-    $('#posibleans2').empty();
-    $('#question').text("Incorrect! the correct answer was: " + answer);
+    $(this).addClass('red-glow');
     setTimeout(function () {
-      $('#posibleans1').empty();
-      $('#posibleans2').empty();
-      run();
-      $('#timer').show();
-      render();
-    }, 2000);
-  }
+      $(this).removeClass('red-glow')
+    }, 700);
 
-  else {
-    if (things.length != -1) {
+    setTimeout(function () {
       clearInterval(intervalId);
-      score = score + 10;
+      $('#timer').hide();
       $('#posibleans1').empty();
       $('#posibleans2').empty();
-      $('#question').text("Good job! but can you keep going?");
+      $('#question').text("Incorrect! the correct answer was: " + answer);
       setTimeout(function () {
         $('#posibleans1').empty();
         $('#posibleans2').empty();
@@ -165,6 +155,33 @@ $(document).on("click", ".choice", function () {
         $('#timer').show();
         render();
       }, 2000);
+
+    }, 1000)
+
+  }
+
+  else {
+    if (things.length != -1) {
+      $(this).addClass('green-glow');
+      setTimeout(function () {
+        $(this).removeClass('green-glow')
+      }, 700);
+      setTimeout(function () {
+        clearInterval(intervalId);
+        score = score + 10;
+        $('#posibleans1').empty();
+        $('#posibleans2').empty();
+        $('#question').text("Good job! but can you keep going?");
+        setTimeout(function () {
+          $('#posibleans1').empty();
+          $('#posibleans2').empty();
+          run();
+          $('#timer').show();
+          render();
+        }, 2000);
+
+      },1000)
+
     }
   }
 });
